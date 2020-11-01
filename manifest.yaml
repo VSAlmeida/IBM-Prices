@@ -1,0 +1,10 @@
+---
+applications:
+  - name: cf-serpro-dev
+    routes:
+      - route: prices.mybluemix.net
+    memory: 512M
+    instances: 1
+    buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+    env:
+      FORCE_HTTPS: true
