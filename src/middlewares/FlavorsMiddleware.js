@@ -1,5 +1,5 @@
 const api = require('../../config/slApi');
-const GenericHelper = require('../helpers/GenericHelper')
+const VsiHelper = require('../helpers/VsiHelper');
 
 module.exports = {
   async setPublicFlavors(req, res, next) {
@@ -11,7 +11,7 @@ module.exports = {
       .then((res) => {
         let data = [];
         res.data.forEach((element) => {
-          let json = GenericHelper.defaultJson();
+          let json = VsiHelper.defaultJson();
           const [type, machine] = element.name.split('.');
           const [vCpu, ram, disk] = machine.split('x');
           const device = type + '.' + vCpu + 'x' + ram;
@@ -43,7 +43,8 @@ module.exports = {
                   )
                     json.ramID = priceElement.item.keyName;
                   if (
-                    priceElement.item.itemCategory.categoryCode === 'guest_disk0'
+                    priceElement.item.itemCategory.categoryCode ===
+                    'guest_disk0'
                   ) {
                     json.storageID = priceElement.item.keyName;
                   }
@@ -163,10 +164,10 @@ module.exports = {
       )
       .then((result) => {
         let data = [];
-        result.data.forEach(e => {
-          if (e.keyName.includes("1_YEAR")) {
-            let json = GenericHelper.defaultJson();
-            const [device, term] = e.description.split(' ')
+        result.data.forEach((e) => {
+          if (e.keyName.includes('1_YEAR')) {
+            let json = VsiHelper.defaultJson();
+            const [device, term] = e.description.split(' ');
             const [type, machine] = device.split('.');
             const [vCpu, ram] = machine.split('x');
             json.termType = 'Reserved';
@@ -194,35 +195,35 @@ module.exports = {
               default:
                 break;
             }
-            e.prices.forEach(price => {
+            e.prices.forEach((price) => {
               if (price.locationGroupId === groupId) {
-                json.pricePerUnit += parseFloat(price.recurringFee)
+                json.pricePerUnit += parseFloat(price.recurringFee);
                 data[data.length] = json;
               }
-            })
-          };
-        })
+            });
+          }
+        });
         return data;
       })
       .catch((err) => {
         res.send(err.response);
-      })
+      });
     let reserved = [];
 
-    data.forEach(e => {
-      let json = GenericHelper.newJson(e)
+    data.forEach((e) => {
+      let json = VsiHelper.newJson(e);
       json.storage = '25GB SAN';
       reserved[reserved.length] = json;
-    })
+    });
 
-    data.forEach(e => {
-      let json = GenericHelper.newJson(e)
+    data.forEach((e) => {
+      let json = VsiHelper.newJson(e);
       json.storage = '100GB SAN';
       reserved[reserved.length] = json;
-    })
+    });
 
     res.locals.reserved = reserved;
     res.locals.groupId = groupId;
     next();
-  }
+  },
 };
