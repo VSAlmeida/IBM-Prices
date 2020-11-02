@@ -1,4 +1,4 @@
-const VsiHelper = require('../helpers/VsiHelper');
+const VsiHelper = require('../../helpers/VsiHelper');
 
 module.exports = {
   async setOS(req, res, next) {

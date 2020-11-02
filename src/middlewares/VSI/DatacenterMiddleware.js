@@ -1,4 +1,4 @@
-const DataCenterHelpers = require('../helpers/DataCenterHelpers');
+const DataCenterHelpers = require('../../helpers/DataCenterHelpers');
 
 module.exports = {
   async verifyDT(req, res, next) {

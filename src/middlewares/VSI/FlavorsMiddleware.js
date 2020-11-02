@@ -1,5 +1,5 @@
-const api = require('../../config/slApi');
-const VsiHelper = require('../helpers/VsiHelper');
+const api = require('../../../config/slApi');
+const VsiHelper = require('../../helpers/VsiHelper');
 
 module.exports = {
   async setPublicFlavors(req, res, next) {

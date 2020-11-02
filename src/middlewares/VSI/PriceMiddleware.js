@@ -1,8 +1,8 @@
-const api = require('../../config/slApi');
+const api = require('../../../config/slApi');
 
 function removeDuplicates(array) {
-  return array.filter((a, b) => array.indexOf(a) === b)
-};
+  return array.filter((a, b) => array.indexOf(a) === b);
+}
 
 module.exports = {
   async setPrice(req, res, next) {
@@ -20,11 +20,13 @@ module.exports = {
           result.data.forEach((resultElement) => {
             //Adiciona o preço das vCPUs / Ram / Rede
             //Verifica se o ID da vCPU é igual ao keyName(ID) do item corrente, do resultElement
-            if (dataElement.vCpuID === resultElement.keyName ||
+            if (
+              dataElement.vCpuID === resultElement.keyName ||
               //Verifica se o ID da Ram é igual ao keyName(ID) do item corrente, do resultElement
               dataElement.ramID === resultElement.keyName ||
               //Verifica se o nome da Rede é igual ao nome da rede do item corrente, do resultElement
-              dataElement.networkPerformance === resultElement.description) {
+              dataElement.networkPerformance === resultElement.description
+            ) {
               //Os preços vem em uma lista separados por regioes
               //Percorre a lista de preços 1 por vez, colocando na variavel priceElement
               resultElement.prices.forEach((priceElement) => {
@@ -71,92 +73,138 @@ module.exports = {
 
             //Set OS prices
             switch (dataElement.operatingSystem.shortName) {
-              case "Ubuntu":
-                if (resultElement.keyName.includes('UBUNTU_18') ||
-                  resultElement.keyName.includes('UBUNTU_16')) {
-                  dataElement.operatingSystem.version[dataElement.operatingSystem.version.length] =
-                    resultElement.description
-                  dataElement.operatingSystem.version = removeDuplicates(dataElement.operatingSystem.version)
+              case 'Ubuntu':
+                if (
+                  resultElement.keyName.includes('UBUNTU_18') ||
+                  resultElement.keyName.includes('UBUNTU_16')
+                ) {
+                  dataElement.operatingSystem.version[
+                    dataElement.operatingSystem.version.length
+                  ] = resultElement.description;
+                  dataElement.operatingSystem.version = removeDuplicates(
+                    dataElement.operatingSystem.version
+                  );
                 }
-                if (resultElement.keyName.includes('MYSQL') &&
+                if (
+                  resultElement.keyName.includes('MYSQL') &&
                   resultElement.keyName.includes('LINUX') &&
-                  dataElement.preInstaledSoftware !== 'None') {
-                  dataElement.preInstaledSoftware.version[dataElement.preInstaledSoftware.version.length] =
-                    resultElement.description
+                  dataElement.preInstaledSoftware !== 'None'
+                ) {
+                  dataElement.preInstaledSoftware.version[
+                    dataElement.preInstaledSoftware.version.length
+                  ] = resultElement.description;
                 }
                 break;
-              case "Debian":
-                if (resultElement.keyName.includes('DEBIAN_10') ||
+              case 'Debian':
+                if (
+                  resultElement.keyName.includes('DEBIAN_10') ||
                   resultElement.keyName.includes('DEBIAN_9') ||
-                  resultElement.keyName.includes('DEBIAN_7')) {
-                  dataElement.operatingSystem.version[dataElement.operatingSystem.version.length] =
-                    resultElement.description
-                  dataElement.operatingSystem.version = removeDuplicates(dataElement.operatingSystem.version)
+                  resultElement.keyName.includes('DEBIAN_7')
+                ) {
+                  dataElement.operatingSystem.version[
+                    dataElement.operatingSystem.version.length
+                  ] = resultElement.description;
+                  dataElement.operatingSystem.version = removeDuplicates(
+                    dataElement.operatingSystem.version
+                  );
                 }
-                if (resultElement.keyName.includes('MYSQL') &&
+                if (
+                  resultElement.keyName.includes('MYSQL') &&
                   resultElement.keyName.includes('LINUX') &&
-                  dataElement.preInstaledSoftware !== 'None') {
-                  dataElement.preInstaledSoftware.version[dataElement.preInstaledSoftware.version.length] =
-                    resultElement.description
+                  dataElement.preInstaledSoftware !== 'None'
+                ) {
+                  dataElement.preInstaledSoftware.version[
+                    dataElement.preInstaledSoftware.version.length
+                  ] = resultElement.description;
                 }
                 break;
-              case "CentOS":
-                if (resultElement.keyName.includes('CENTOS_8') ||
-                  resultElement.keyName.includes('CENTOS_7')) {
-                  dataElement.operatingSystem.version[dataElement.operatingSystem.version.length] =
-                    resultElement.description
-                  dataElement.operatingSystem.version = removeDuplicates(dataElement.operatingSystem.version)
+              case 'CentOS':
+                if (
+                  resultElement.keyName.includes('CENTOS_8') ||
+                  resultElement.keyName.includes('CENTOS_7')
+                ) {
+                  dataElement.operatingSystem.version[
+                    dataElement.operatingSystem.version.length
+                  ] = resultElement.description;
+                  dataElement.operatingSystem.version = removeDuplicates(
+                    dataElement.operatingSystem.version
+                  );
                 }
-                if (resultElement.keyName.includes('MYSQL') &&
+                if (
+                  resultElement.keyName.includes('MYSQL') &&
                   resultElement.keyName.includes('LINUX') &&
-                  dataElement.preInstaledSoftware !== 'None') {
-                  dataElement.preInstaledSoftware.version[dataElement.preInstaledSoftware.version.length] =
-                    resultElement.description
+                  dataElement.preInstaledSoftware !== 'None'
+                ) {
+                  dataElement.preInstaledSoftware.version[
+                    dataElement.preInstaledSoftware.version.length
+                  ] = resultElement.description;
                 }
                 break;
-              case "Red Hat Enterprise Linux":
-                if (resultElement.keyName.includes('RHEL_8') ||
+              case 'Red Hat Enterprise Linux':
+                if (
+                  resultElement.keyName.includes('RHEL_8') ||
                   resultElement.keyName.includes('RHEL_7') ||
-                  resultElement.keyName.includes('RHEL_6')) {
+                  resultElement.keyName.includes('RHEL_6')
+                ) {
                   if (!dataElement.operatingSystemPrice) {
                     priceIndex = dataElement.vCPU >= 8 ? 1 : 0;
-                    dataElement.pricePerUnit += parseFloat(resultElement.prices[priceIndex].hourlyRecurringFee)
-                    dataElement.operatingSystemPrice = true
+                    dataElement.pricePerUnit += parseFloat(
+                      resultElement.prices[priceIndex].hourlyRecurringFee
+                    );
+                    dataElement.operatingSystemPrice = true;
                   }
-                  dataElement.operatingSystem.version[dataElement.operatingSystem.version.length] =
-                    resultElement.description
-                  dataElement.operatingSystem.version = removeDuplicates(dataElement.operatingSystem.version)
+                  dataElement.operatingSystem.version[
+                    dataElement.operatingSystem.version.length
+                  ] = resultElement.description;
+                  dataElement.operatingSystem.version = removeDuplicates(
+                    dataElement.operatingSystem.version
+                  );
                 }
-                if (resultElement.keyName.includes('MYSQL') &&
+                if (
+                  resultElement.keyName.includes('MYSQL') &&
                   resultElement.keyName.includes('LINUX') &&
-                  dataElement.preInstaledSoftware !== 'None') {
-                  dataElement.preInstaledSoftware.version[dataElement.preInstaledSoftware.version.length] =
-                    resultElement.description
+                  dataElement.preInstaledSoftware !== 'None'
+                ) {
+                  dataElement.preInstaledSoftware.version[
+                    dataElement.preInstaledSoftware.version.length
+                  ] = resultElement.description;
                 }
                 break;
-              case "Windows":
-                if (resultElement.keyName.includes('WINDOWS_SERVER_2019') ||
+              case 'Windows':
+                if (
+                  resultElement.keyName.includes('WINDOWS_SERVER_2019') ||
                   resultElement.keyName.includes('WINDOWS_2012') ||
-                  resultElement.keyName.includes('WINDOWS_2016')) {
+                  resultElement.keyName.includes('WINDOWS_2016')
+                ) {
                   if (!dataElement.operatingSystemPrice) {
                     if (dataElement.termType === 'OnDemand') {
-                      dataElement.pricePerUnit += parseFloat(dataElement.vCPU * 0.04)
-                      dataElement.operatingSystemPrice = true
+                      dataElement.pricePerUnit += parseFloat(
+                        dataElement.vCPU * 0.04
+                      );
+                      dataElement.operatingSystemPrice = true;
                     }
                     if (dataElement.termType === 'Reserved') {
-                      dataElement.pricePerUnit += parseFloat(dataElement.vCPU * 26.55)
-                      dataElement.operatingSystemPrice = true
+                      dataElement.pricePerUnit += parseFloat(
+                        dataElement.vCPU * 26.55
+                      );
+                      dataElement.operatingSystemPrice = true;
                     }
                   }
-                  dataElement.operatingSystem.version[dataElement.operatingSystem.version.length] =
-                    resultElement.description
-                  dataElement.operatingSystem.version = removeDuplicates(dataElement.operatingSystem.version)
+                  dataElement.operatingSystem.version[
+                    dataElement.operatingSystem.version.length
+                  ] = resultElement.description;
+                  dataElement.operatingSystem.version = removeDuplicates(
+                    dataElement.operatingSystem.version
+                  );
                 }
-                if (resultElement.keyName.includes('MYSQL') &&
+                if (
+                  resultElement.keyName.includes('MYSQL') &&
                   resultElement.keyName.includes('WINDOWS') &&
-                  dataElement.preInstaledSoftware !== 'None') {
-                  dataElement.preInstaledSoftware.version[dataElement.preInstaledSoftware.version.length] =
-                    resultElement.description
+                  dataElement.preInstaledSoftware !== 'None'
+                ) {
+                  dataElement.preInstaledSoftware.version[
+                    dataElement.preInstaledSoftware.version.length
+                  ] = resultElement.description;
                 }
                 break;
               default:
