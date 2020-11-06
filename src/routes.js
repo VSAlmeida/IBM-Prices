@@ -21,16 +21,17 @@ const PostgreMiddleware = require('./middlewares/DB/PostgreMiddleware');
 const routes = express.Router();
 
 //Middlewares das VSI
-routes.use('/vsi', DcMiddleware.verifyVSIParms);
-routes.use('/vsi', FlavorsMiddleware.setPublicFlavors);
-routes.use('/vsi', FlavorsMiddleware.setReservedFlavors);
-routes.use('/vsi', NetworkMiddleware.setNetwork);
-routes.use('/vsi', OsMiddleware.setOS);
-routes.use('/vsi', SoftwareMiddleware.setSoftware);
-routes.use('/vsi', PriceMiddleware.setPrice);
+routes.use('/vsi/all', DcMiddleware.verifyVSIParms);
+routes.use('/vsi/all', FlavorsMiddleware.setPublicFlavors);
+routes.use('/vsi/all', FlavorsMiddleware.setReservedFlavors);
+routes.use('/vsi/all', NetworkMiddleware.setNetwork);
+routes.use('/vsi/all', OsMiddleware.setOS);
+routes.use('/vsi/all', SoftwareMiddleware.setSoftware);
+routes.use('/vsi/all', PriceMiddleware.setPrice);
 
 //Rota das VSI
 routes.get('/vsi/all', VsiController.getAll);
+routes.get('/vsi/locations', VsiController.getLocations);
 
 //Middlewares dos BDs
 routes.use('/db/all', DcMiddleware.verifyDBParms);

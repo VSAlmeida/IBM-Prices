@@ -10,6 +10,6 @@ module.exports = {
 
   //Rota responsavel por retornar todas as localizações
   async getLocations(req, res) {
-    res.send(VsiHelper.getLocations());
+    res.send({ data: VsiHelper.getLocations() });
   },
 };
