@@ -207,11 +207,9 @@ module.exports = {
                   ] = resultElement.description;
                 }
                 break;
-              default:
-                break;
             }
           });
-          //Arredonda o preço final com 4 casas depois da virgula (se necessario)
+          //Arredonda o preço final com 3 casas depois da virgula (se necessario)
           dataElement.pricePerUnit =
             Math.round(dataElement.pricePerUnit * 1000) / 1000;
           //Depois de adicionar os preços removemos os ID utilizados para auxiliar no processo
