@@ -119,26 +119,29 @@ module.exports = {
               data[data.length] = json;
               break;
             case 'M1':
-              json.instanceFamily = 'Memory';
-              json.storage = disk + 'GB SAN';
-              element.prices.forEach((priceElement) => {
-                if (
-                  priceElement.item.capacity === vCpu &&
-                  priceElement.item.units === 'CORE'
-                )
-                  json.vCpuID = priceElement.item.keyName;
-                if (
-                  priceElement.item.capacity === ram &&
-                  priceElement.item.units === 'GB'
-                )
-                  json.ramID = priceElement.item.keyName;
-                if (
-                  priceElement.item.itemCategory.categoryCode === 'guest_disk0'
-                ) {
-                  json.storageID = priceElement.item.keyName;
-                }
-              });
-              data[data.length] = json;
+              if (vCpu <= 30) {
+                json.instanceFamily = 'Memory';
+                json.storage = disk + 'GB SAN';
+                element.prices.forEach((priceElement) => {
+                  if (
+                    priceElement.item.capacity === vCpu &&
+                    priceElement.item.units === 'CORE'
+                  )
+                    json.vCpuID = priceElement.item.keyName;
+                  if (
+                    priceElement.item.capacity === ram &&
+                    priceElement.item.units === 'GB'
+                  )
+                    json.ramID = priceElement.item.keyName;
+                  if (
+                    priceElement.item.itemCategory.categoryCode ===
+                    'guest_disk0'
+                  ) {
+                    json.storageID = priceElement.item.keyName;
+                  }
+                });
+                data[data.length] = json;
+              }
               break;
             default:
               break;
