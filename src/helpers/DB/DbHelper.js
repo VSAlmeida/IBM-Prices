@@ -20,6 +20,7 @@ module.exports = {
       engineCode: '',
       databaseEngine: '',
       databaseEdition: '',
+      licenseModel: '',
     };
   },
 

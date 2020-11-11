@@ -30,6 +30,7 @@ function setFlavor(options, dbName) {
         json.instanceType = json.vCPU + 'x' + json.memory;
         json.storage = diskElement.value * coreElement.cores;
         json.databaseEngine = dbName;
+        json.licenseModel = 'License Included';
         data[data.length] = json;
       });
     });
