@@ -33,13 +33,19 @@ module.exports = {
                 //Verifica se o ID da Regiao é igual ao ID da regiao que veio da request
                 if (priceElement.locationGroupId === groupId) {
                   //Verifica se a maquina corrente é do tipo OnDemand
-                  if (dataElement.termType === 'OnDemand') {
+                  if (
+                    dataElement.termType === 'OnDemand' &&
+                    priceElement.hourlyRecurringFee != undefined
+                  ) {
                     dataElement.pricePerUnit += parseFloat(
                       priceElement.hourlyRecurringFee
                     );
                   }
                   //Verifica se a maquina corrente é do tipo Reserved
-                  if (dataElement.termType === 'Reserved') {
+                  if (
+                    dataElement.termType === 'Reserved' &&
+                    priceElement.recurringFee != undefined
+                  ) {
                     dataElement.pricePerUnit += parseFloat(
                       priceElement.recurringFee
                     );
