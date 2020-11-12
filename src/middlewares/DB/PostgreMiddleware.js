@@ -56,8 +56,10 @@ module.exports = {
         next();
       })
       .catch((err) => {
-        console.log(err);
-        next();
+        const { message, code } = err.response.data;
+        res
+          .status(code)
+          .send({ message: message, errorOrigin: 'ibm_global_catalog' });
       });
   },
 };

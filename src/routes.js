@@ -16,6 +16,7 @@ const SoftwareMiddleware = require('./middlewares/VSI/SoftwareMiddleware');
 const EdbMiddleware = require('./middlewares/DB/EdbMiddleware');
 const DbMiddleware = require('./middlewares/DB/DbMiddleware');
 const PostgreMiddleware = require('./middlewares/DB/PostgreMiddleware');
+const Db2Middleware = require('./middlewares/DB/Db2Middleware');
 
 //Declaração das Rotas
 const routes = express.Router();
@@ -38,6 +39,8 @@ routes.use('/db/all', DcMiddleware.verifyDBParms);
 routes.use('/db/all', DbMiddleware.setOffering);
 routes.use('/db/all', EdbMiddleware.setPrice);
 routes.use('/db/all', PostgreMiddleware.setPrice);
+routes.use('/db/all', Db2Middleware.setStandardPrice);
+routes.use('/db/all', Db2Middleware.setEnterprisePrice);
 
 //Rotas dos BD
 routes.get('/db/all', DbController.getAll);
