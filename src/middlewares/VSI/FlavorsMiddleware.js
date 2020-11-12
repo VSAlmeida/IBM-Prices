@@ -46,7 +46,9 @@ module.exports = {
                     priceElement.item.itemCategory.categoryCode ===
                     'guest_disk0'
                   ) {
-                    json.storageID = priceElement.item.keyName;
+                    if (json.storage === '25GB SAN')
+                      json.storageID = 'GUEST_DISK_25_GB_SAN_4';
+                    else json.storageID = priceElement.item.keyName;
                   }
                 });
                 data[data.length] = json;
@@ -69,7 +71,9 @@ module.exports = {
                 if (
                   priceElement.item.itemCategory.categoryCode === 'guest_disk0'
                 ) {
-                  json.storageID = priceElement.item.keyName;
+                  if (json.storage === '25GB SAN')
+                    json.storageID = 'GUEST_DISK_25_GB_SAN_4';
+                  else json.storageID = priceElement.item.keyName;
                 }
               });
               data[data.length] = json;
@@ -92,7 +96,9 @@ module.exports = {
                 if (
                   priceElement.item.itemCategory.categoryCode === 'guest_disk0'
                 ) {
-                  json.storageID = priceElement.item.keyName;
+                  if (json.storage === '25GB SAN')
+                    json.storageID = 'GUEST_DISK_25_GB_SAN_4';
+                  else json.storageID = priceElement.item.keyName;
                 }
               });
               break;
@@ -113,7 +119,9 @@ module.exports = {
                 if (
                   priceElement.item.itemCategory.categoryCode === 'guest_disk0'
                 ) {
-                  json.storageID = priceElement.item.keyName;
+                  if (json.storage === '25GB SAN')
+                    json.storageID = 'GUEST_DISK_25_GB_SAN_4';
+                  else json.storageID = priceElement.item.keyName;
                 }
               });
               data[data.length] = json;
@@ -137,7 +145,9 @@ module.exports = {
                     priceElement.item.itemCategory.categoryCode ===
                     'guest_disk0'
                   ) {
-                    json.storageID = priceElement.item.keyName;
+                    if (json.storage === '25GB SAN')
+                      json.storageID = 'GUEST_DISK_25_GB_SAN_4';
+                    else json.storageID = priceElement.item.keyName;
                   }
                 });
                 data[data.length] = json;
